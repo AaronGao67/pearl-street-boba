@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pearl Street Boba</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #222;
+      background: linear-gradient(to top, #300d08, #96674A);
+    }
+
+    h1 {
+      margin: 0 0 0.35rem;
+      font-size: 2rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: #e8f3ed;
+      border: 1px solid #c9dfd1;
+      border-radius: 1.5rem;
+      box-shadow: 0 0.5rem 1rem rgba(34, 34, 34, 0.12);
+    }
+
+    .hero h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      margin-bottom: 1rem;
+    }
+
+    .hero img {
+      display: block;
+      width: 100%;
+      height: 18rem;
+      object-fit: cover;
+      margin: 0;
+      border-radius: 1rem;
+    }
+
+    .drink-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .drink-card {
+      margin: 0;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #e2e2e2;
+      border-radius: 0.75rem;
+      box-shadow: 0 0.25rem 0.6rem rgba(34, 34, 34, 0.08);
+    }
+
+    .drink-card img {
+      display: block;
+      width: 100%;
+      height: 12rem;
+      object-fit: cover;
+      border-radius: 0.75rem;
+    }
+
+    .drink-card img.full-drink {
+      object-fit: contain;
+      background: #f7f7f7;
+    }
+
+    .drink-card h3 {
+      margin: 0.7rem 0 0.2rem;
+      font-size: 1rem;
+    }
+
+    .drink-card p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .drink-card .price {
+      margin-top: 0.45rem;
+      color: #28734f;
+      font-weight: bold;
+    }
+
+    .hero a {
+      display: inline-block;
+      padding: 0.6rem 1rem;
+      color: #fff;
+      background: #28734f;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      box-shadow: 0 0.25rem 0.5rem rgba(34, 34, 34, 0.18);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .hero a:hover {
+      transform: translateY(2px);
+      box-shadow: 0 0.1rem 0.25rem rgba(34, 34, 34, 0.18);
+    }
+
+    @media (max-width: 42rem) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .drink-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 42.01rem) and (max-width: 64rem) {
+      .drink-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    h2 {
+      margin: 1.75rem 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0 0 0.65rem;
+      max-width: 36rem;
+    }
+
+    ul {
+      margin: 0 0 0.75rem;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+
+    .boba-decoration {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+      height: 24rem;
+      margin-top: 2rem;
+      overflow: visible;
+      pointer-events: auto;
+      opacity: 1;
+      contain: layout;
+    }
+
+    .boba-decoration span {
+      flex: 0 0 3rem;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: #000;
+      box-shadow: inset 0.2rem 0.2rem 0.2rem rgba(255, 255, 255, 0.16), 0 0 0.25rem rgba(0, 0, 0, 0.5);
+      will-change: transform;
+    }
+
+    .boba-row {
+      display: flex;
+      width: 100%;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .boba-row span + span {
+      margin-left: var(--boba-overlap, 0rem);
+    }
+
+    .boba-row span:nth-child(4n + 1) {
+      transform: translateY(-0.25rem);
+    }
+
+    .boba-row span:nth-child(4n + 2) {
+      transform: translateY(0.55rem);
+    }
+
+    .boba-row span:nth-child(4n + 3) {
+      transform: translateY(0.1rem);
+    }
+
+    .boba-decoration span:nth-child(2n) {
+      margin-bottom: 1.8rem;
+    }
+
+    .boba-decoration span:nth-child(3n) {
+      margin-bottom: 0.8rem;
+    }
+
+    .boba-debug {
+      position: relative;
+      z-index: 2;
+      margin-top: 1.5rem;
+      text-align: center;
+      color: #fff;
+    }
+
+    .boba-debug input {
+      width: min(14rem, 35%);
+      accent-color: #000;
+      vertical-align: middle;
+    }
+
+    .boba-debug output {
+      display: inline-block;
+      min-width: 2rem;
+      font-weight: bold;
+    }
+
+    .fps-counter {
+      display: inline-block;
+      margin-left: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <section class="hero" aria-labelledby="hero-title">
+    <div>
+      <h1 id="hero-title">Fresh boba, made for your day</h1>
+      <p>Find your favorite tea, pearls, and toppings at Pearl Street Boba.</p>
+      <a href="#menu">See the menu</a>
+    </div>
+    <img src="images/hero.jpg" alt="Fresh boba tea from Pearl Street Boba" />
+  </section>
+
+  <h1>Pearl Street Boba</h1>
+  <p>Fresh boba tea near campus.</p>
+  <p>Owner: Kai</p>
+
+  <h2>About</h2>
+  <p>Small boba shop on Pearl Street and 4th. Fresh tea. Soft pearls. Fast orders.</p>
+
+  <h2 id="menu">Menu</h2>
+  <div class="drink-gallery" aria-label="Featured drinks">
+    <article class="drink-card">
+      <img src="images/classic-milk-tea.png" alt="Classic milk tea" />
+      <h3>Classic milk tea</h3>
+      <p>Creamy black tea with chewy classic boba pearls.</p>
+      <p class="price">$5.50</p>
+    </article>
+    <article class="drink-card">
+      <img class="full-drink" src="images/brown-sugar-milk-tea.png" alt="Brown sugar milk tea" />
+      <h3>Brown sugar milk tea</h3>
+      <p>Rich milk tea layered with deep brown sugar flavor.</p>
+      <p class="price">$6.00</p>
+    </article>
+    <article class="drink-card">
+      <img class="full-drink" src="images/brown-sugar-boba.png" alt="Brown sugar boba drink" />
+      <h3>Brown sugar boba</h3>
+      <p>A satisfyingly sweet boba drink served ice cold.</p>
+      <p class="price">$6.00</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/taro.jpg" alt="Taro milk tea" />
+      <h3>Taro milk tea</h3>
+      <p>Smooth, nutty taro blended into a creamy tea.</p>
+      <p class="price">$6.00</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/strawberry.jpg" alt="Strawberry fruit tea" />
+      <h3>Strawberry fruit tea</h3>
+      <p>Bright strawberry flavor with a refreshing tea finish.</p>
+      <p class="price">$5.50</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/layered-fruit-tea.png" alt="Layered boba drink" />
+      <h3>Layered fruit tea</h3>
+      <p>Colorful fruit flavors layered for a fresh, lively sip.</p>
+      <p class="price">$5.50</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/matcha-latte-generated.png" alt="Matcha latte with boba" />
+      <h3>Matcha latte</h3>
+      <p>Earthy matcha and creamy milk with chewy boba.</p>
+      <p class="price">$6.25</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/thai-tea-generated.png" alt="Thai tea with boba" />
+      <h3>Thai tea</h3>
+      <p>Sweet, spiced Thai tea poured over ice and boba.</p>
+      <p class="price">$5.75</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/mango-green-tea-generated.png" alt="Mango green tea" />
+      <h3>Mango green tea</h3>
+      <p>Bright mango flavor balanced with refreshing green tea.</p>
+      <p class="price">$5.50</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/honey-lemon-generated.png" alt="Honey lemon green tea" />
+      <h3>Honey lemon green tea</h3>
+      <p>Light green tea with sunny lemon and honey sweetness.</p>
+      <p class="price">$5.25</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/wintermelon-generated.png" alt="Wintermelon tea" />
+      <h3>Wintermelon tea</h3>
+      <p>Clean, mellow wintermelon flavor served over ice.</p>
+      <p class="price">$5.00</p>
+    </article>
+    <article class="drink-card">
+      <img src="images/oolong-milk-tea.png" alt="Oolong milk tea with boba" />
+      <h3>Oolong milk tea</h3>
+      <p>Toasty oolong tea softened with creamy milk and boba.</p>
+      <p class="price">$5.75</p>
+    </article>
+  </div>
+  <p>Toppings:</p>
+  <ul>
+    <li>Classic boba pearls - +$0.75</li>
+    <li>Brown sugar pearls - +$1.00</li>
+    <li>Lychee jelly - +$0.75</li>
+    <li>Aloe jelly - +$0.75</li>
+    <li>Pudding - +$0.75</li>
+  </ul>
+
+  <p>Sweetness: 0%, 30%, 50%, 70%, or 100%</p>
+  <p>Ice: Extra ice, regular ice, or less ice</p>
+
+  <h2>Hours</h2>
+  <p>Mon-Wed: 11:00 AM - 8:00 PM</p>
+  <p>Thu-Fri: 11:00 AM - 9:00 PM</p>
+  <p>Sat: 12:00 PM - 9:00 PM</p>
+  <p>Sun: 12:00 PM - 7:00 PM</p>
+
+  <h2>Location</h2>
+  <p>418 Pearl Street</p>
+  <p>Across from the campus bookstore</p>
+  <p>Look for the green awning</p>
+
+  <h2>Deals</h2>
+  <p>Student discount on classic milk tea on weekday afternoons</p>
+
+  <h2>Contact</h2>
+  <p>Email: kai@pearlstreetboba.example</p>
+  <p>Phone: (555) 014-2288</p>
+
+  <div class="boba-debug">
+    <label for="boba-density">Bottom density: <input id="boba-density" type="range" min="8" max="50" value="32" /><output id="boba-density-value">32</output></label>
+    <label for="boba-top-density">Top density: <input id="boba-top-density" type="range" min="4" max="30" value="10" /><output id="boba-top-density-value">10</output></label>
+    <span class="fps-counter" id="fps-counter">FPS: --</span>
+  </div>
+  <div class="boba-decoration" aria-hidden="true"></div>
+
+  <script>
+    const bobaDecoration = document.querySelector('.boba-decoration');
+    const densitySlider = document.querySelector('#boba-density');
+    const densityValue = document.querySelector('#boba-density-value');
+    const topDensitySlider = document.querySelector('#boba-top-density');
+    const topDensityValue = document.querySelector('#boba-top-density-value');
+    const fpsCounter = document.querySelector('#fps-counter');
+    const verticalOffsets = [-40, 23, -8, 35, -27, 12, -3, 41, -18, 7, -34, 29, -13, 2, 38, -22];
+    let boba = [];
+    let activePearls = new Set();
+    let frameCount = 0;
+    let fpsStart = performance.now();
+
+    function buildBoba() {
+      const bottomRowCount = Number(densitySlider.value);
+      const topRowCount = Number(topDensitySlider.value);
+      const rowCounts = [
+        topRowCount,
+        Math.round(topRowCount + (bottomRowCount - topRowCount) * 0.33),
+        Math.round(topRowCount + (bottomRowCount - topRowCount) * 0.66),
+        bottomRowCount
+      ];
+
+      bobaDecoration.replaceChildren();
+      activePearls = new Set();
+      rowCounts.forEach((count) => {
+        const row = document.createElement('div');
+        row.className = 'boba-row';
+        const overlap = count > 1 ? Math.min(0, (55 - count * 3) / (count - 1)) : 0;
+        row.style.setProperty('--boba-overlap', `${overlap}rem`);
+        for (let index = 0; index < count; index += 1) {
+          row.appendChild(document.createElement('span'));
+        }
+        bobaDecoration.appendChild(row);
+      });
+
+      boba = [...bobaDecoration.querySelectorAll('span')].map((element, index) => {
+        const offset = verticalOffsets[Math.floor(Math.random() * verticalOffsets.length)];
+        const restY = offset + Math.round(Math.random() * 8 - 4);
+        element.style.transform = `translate(0, ${restY}px)`;
+        return { element, x: 0, y: restY, restY, vx: 0, vy: 0 };
+      });
+      densityValue.value = bottomRowCount;
+      topDensityValue.value = topRowCount;
+    }
+
+    densitySlider.addEventListener('input', buildBoba);
+    topDensitySlider.addEventListener('input', buildBoba);
+    buildBoba();
+
+    let pointer = null;
+
+    bobaDecoration.addEventListener('pointermove', (event) => {
+      const movementX = pointer ? event.clientX - pointer.x : 0;
+      const movementY = pointer ? event.clientY - pointer.y : 0;
+      pointer = { x: event.clientX, y: event.clientY, dx: movementX, dy: movementY };
+
+      boba.forEach((pearl) => {
+        const bounds = pearl.element.getBoundingClientRect();
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
+        const distance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+        const influence = Math.max(0, 1 - distance / 140);
+
+        if (influence > 0) {
+          pearl.vx += movementX * influence * 0.18;
+          pearl.vy += movementY * influence * 0.18;
+          activePearls.add(pearl);
+        }
+      });
+    });
+
+    function animateBoba() {
+      frameCount += 1;
+      const now = performance.now();
+      if (now - fpsStart >= 500) {
+        fpsCounter.textContent = `FPS: ${Math.round(frameCount * 1000 / (now - fpsStart))}`;
+        frameCount = 0;
+        fpsStart = now;
+      }
+
+      activePearls.forEach((pearl) => {
+        pearl.vx += -pearl.x * 0.012;
+        pearl.vy += (pearl.restY - pearl.y) * 0.012;
+        pearl.vx *= 0.9;
+        pearl.vy *= 0.9;
+        pearl.x += pearl.vx;
+        pearl.y += pearl.vy;
+        pearl.element.style.transform = `translate(${pearl.x}px, ${pearl.y}px)`;
+
+        if (Math.abs(pearl.vx) < 0.01 && Math.abs(pearl.vy) < 0.01 && Math.abs(pearl.x) < 0.1) {
+          pearl.x = 0;
+          pearl.y = pearl.restY;
+          pearl.element.style.transform = `translate(0, ${pearl.restY}px)`;
+          activePearls.delete(pearl);
+        }
+      });
+
+      requestAnimationFrame(animateBoba);
+    }
+
+    animateBoba();
+  </script>
+</body>
+</html>
