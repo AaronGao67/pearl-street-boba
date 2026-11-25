@@ -8,11 +8,12 @@
     body {
       margin: 0;
       padding: 1.5rem;
+      position: relative;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 1rem;
       line-height: 1.5;
       color: #222;
-      background: linear-gradient(to top, #300d08, #96674A);
+      background: linear-gradient(to top, #2b1710 0%, #8d5a36 48%, #d8b88f 100%);
     }
 
     h1 {
@@ -20,7 +21,43 @@
       font-size: 2rem;
     }
 
+    .site-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 0.9rem 1.25rem;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 1rem;
+    }
+
+    .site-header strong {
+      color: #3a2118;
+    }
+
+    .site-header nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .site-header a {
+      color: #3a2118;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .site-header a:hover {
+      text-decoration: underline;
+    }
+
     .hero {
+      position: relative;
+      z-index: 2;
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
       gap: 2rem;
@@ -53,14 +90,19 @@
     .drink-gallery {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1.5rem;
+      gap: 1.75rem;
+      width: 80%;
+      margin-right: auto;
+      margin-left: auto;
       margin-bottom: 1.25rem;
     }
 
     .drink-card {
+      position: relative;
+      z-index: 2;
       margin: 0;
       padding: 1rem;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.76);
       border: 1px solid #e2e2e2;
       border-radius: 0.75rem;
       box-shadow: 0 0.25rem 0.6rem rgba(34, 34, 34, 0.08);
@@ -111,6 +153,37 @@
       box-shadow: 0 0.1rem 0.25rem rgba(34, 34, 34, 0.18);
     }
 
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1.75rem;
+      width: 80%;
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: 1.5rem;
+    }
+
+    .info-card {
+      position: relative;
+      z-index: 2;
+      padding: 1rem 1.15rem;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 1rem;
+      box-shadow: 0 0.35rem 0.75rem rgba(34, 34, 34, 0.1);
+    }
+
+    body > h1,
+    body > p,
+    body > h2 {
+      position: relative;
+      z-index: 2;
+    }
+
+    .info-card h2 {
+      margin-top: 0;
+    }
+
     @media (max-width: 42rem) {
       .hero {
         grid-template-columns: 1fr;
@@ -147,23 +220,25 @@
     }
 
     .boba-decoration {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 0.5rem;
-      height: 24rem;
-      margin-top: 2rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 0;
+      display: block;
+      width: 100%;
+      min-height: 100vh;
+      height: 100%;
+      margin: 0;
       overflow: visible;
-      pointer-events: auto;
+      pointer-events: none;
       opacity: 1;
       contain: layout;
     }
 
     .boba-decoration span {
-      flex: 0 0 3rem;
+      position: absolute;
+      display: block;
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
@@ -172,36 +247,10 @@
       will-change: transform;
     }
 
-    .boba-row {
-      display: flex;
-      width: 100%;
-      gap: 0.5rem;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .boba-row span + span {
-      margin-left: var(--boba-overlap, 0rem);
-    }
-
-    .boba-row span:nth-child(4n + 1) {
-      transform: translateY(-0.25rem);
-    }
-
-    .boba-row span:nth-child(4n + 2) {
-      transform: translateY(0.55rem);
-    }
-
-    .boba-row span:nth-child(4n + 3) {
-      transform: translateY(0.1rem);
-    }
-
-    .boba-decoration span:nth-child(2n) {
-      margin-bottom: 1.8rem;
-    }
-
-    .boba-decoration span:nth-child(3n) {
-      margin-bottom: 0.8rem;
+    .boba-decoration span.debug-particle {
+      background: rgba(255, 255, 255, 0.28);
+      border: 1px dashed rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 0.35rem rgba(255, 255, 255, 0.55);
     }
 
     .boba-debug {
@@ -210,6 +259,11 @@
       margin-top: 1.5rem;
       text-align: center;
       color: #fff;
+    }
+
+    .boba-debug label {
+      display: inline-block;
+      margin: 0.25rem 0.5rem;
     }
 
     .boba-debug input {
@@ -224,6 +278,24 @@
       font-weight: bold;
     }
 
+    .site-footer {
+      position: relative;
+      z-index: 2;
+      box-sizing: border-box;
+      width: calc(100% + 3rem);
+      margin-left: -1.5rem;
+      margin-top: 2rem;
+      padding: 1.25rem 1.5rem;
+      color: #fff;
+      background: rgba(43, 23, 16, 0.88);
+      border-top: 2px solid rgba(255, 255, 255, 0.45);
+      text-align: center;
+    }
+
+    .site-footer p {
+      margin: 0.25rem auto;
+    }
+
     .fps-counter {
       display: inline-block;
       margin-left: 1rem;
@@ -232,7 +304,18 @@
   </style>
 </head>
 <body>
-  <section class="hero" aria-labelledby="hero-title">
+  <header class="site-header" id="home">
+    <strong>Pearl Street Boba</strong>
+    <nav aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#location">Location</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero" aria-labelledby="hero-title">
     <div>
       <h1 id="hero-title">Fresh boba, made for your day</h1>
       <p>Find your favorite tea, pearls, and toppings at Pearl Street Boba.</p>
@@ -245,8 +328,10 @@
   <p>Fresh boba tea near campus.</p>
   <p>Owner: Kai</p>
 
-  <h2>About</h2>
-  <p>Small boba shop on Pearl Street and 4th. Fresh tea. Soft pearls. Fast orders.</p>
+  <div class="info-card" id="about">
+    <h2>About</h2>
+    <p>Small boba shop on Pearl Street and 4th. Fresh tea. Soft pearls. Fast orders.</p>
+  </div>
 
   <h2 id="menu">Menu</h2>
   <div class="drink-gallery" aria-label="Featured drinks">
@@ -323,113 +408,156 @@
       <p class="price">$5.75</p>
     </article>
   </div>
-  <p>Toppings:</p>
-  <ul>
-    <li>Classic boba pearls - +$0.75</li>
-    <li>Brown sugar pearls - +$1.00</li>
-    <li>Lychee jelly - +$0.75</li>
-    <li>Aloe jelly - +$0.75</li>
-    <li>Pudding - +$0.75</li>
-  </ul>
+  <div class="info-grid">
+    <section class="info-card" id="location">
+      <h2>Toppings</h2>
+      <ul>
+        <li>Classic boba pearls - +$0.75</li>
+        <li>Brown sugar pearls - +$1.00</li>
+        <li>Lychee jelly - +$0.75</li>
+        <li>Aloe jelly - +$0.75</li>
+        <li>Pudding - +$0.75</li>
+      </ul>
+      <p>Sweetness: 0%, 30%, 50%, 70%, or 100%</p>
+      <p>Ice: Extra ice, regular ice, or less ice</p>
+    </section>
 
-  <p>Sweetness: 0%, 30%, 50%, 70%, or 100%</p>
-  <p>Ice: Extra ice, regular ice, or less ice</p>
+    <section class="info-card">
+      <h2>Location</h2>
+      <p>418 Pearl Street</p>
+      <p>Across from the campus bookstore</p>
+      <p>Look for the green awning</p>
+    </section>
 
-  <h2>Hours</h2>
-  <p>Mon-Wed: 11:00 AM - 8:00 PM</p>
-  <p>Thu-Fri: 11:00 AM - 9:00 PM</p>
-  <p>Sat: 12:00 PM - 9:00 PM</p>
-  <p>Sun: 12:00 PM - 7:00 PM</p>
+    <section class="info-card">
+      <h2>Deals</h2>
+      <p>Student discount on classic milk tea on weekday afternoons</p>
+    </section>
 
-  <h2>Location</h2>
-  <p>418 Pearl Street</p>
-  <p>Across from the campus bookstore</p>
-  <p>Look for the green awning</p>
-
-  <h2>Deals</h2>
-  <p>Student discount on classic milk tea on weekday afternoons</p>
-
-  <h2>Contact</h2>
-  <p>Email: kai@pearlstreetboba.example</p>
-  <p>Phone: (555) 014-2288</p>
+  </div>
 
   <div class="boba-debug">
-    <label for="boba-density">Bottom density: <input id="boba-density" type="range" min="8" max="50" value="32" /><output id="boba-density-value">32</output></label>
-    <label for="boba-top-density">Top density: <input id="boba-top-density" type="range" min="4" max="30" value="10" /><output id="boba-top-density-value">10</output></label>
+    <label for="boba-density">Boba amount: <input id="boba-density" type="range" min="8" max="300" value="300" /><output id="boba-density-value">300</output></label>
+    <label for="invisible-count">Invisible count: <input id="invisible-count" type="range" min="0" max="300" value="300" /><output id="invisible-count-value">300</output></label>
+    <label for="invisible-size">Invisible size: <input id="invisible-size" type="range" min="4" max="80" value="64" /><output id="invisible-size-value">64</output>px</label>
+    <label for="show-invisible"><input id="show-invisible" type="checkbox" /> Show invisible</label>
     <span class="fps-counter" id="fps-counter">FPS: --</span>
   </div>
   <div class="boba-decoration" aria-hidden="true"></div>
 
+  <footer class="site-footer" id="contact">
+    <p>418 Pearl Street · (555) 014-2288 · kai@pearlstreetboba.example</p>
+    <p>Open Mon-Wed 11 AM-8 PM · Thu-Fri 11 AM-9 PM · Weekends 12 PM-9 PM</p>
+    <p>&copy; 2026 Pearl Street Boba. Fresh tea, soft pearls.</p>
+  </footer>
+
   <script>
     const bobaDecoration = document.querySelector('.boba-decoration');
+    const siteFooter = document.querySelector('.site-footer');
     const densitySlider = document.querySelector('#boba-density');
     const densityValue = document.querySelector('#boba-density-value');
-    const topDensitySlider = document.querySelector('#boba-top-density');
-    const topDensityValue = document.querySelector('#boba-top-density-value');
+    const invisibleCountSlider = document.querySelector('#invisible-count');
+    const invisibleCountValue = document.querySelector('#invisible-count-value');
+    const invisibleSizeSlider = document.querySelector('#invisible-size');
+    const invisibleSizeValue = document.querySelector('#invisible-size-value');
+    const showInvisible = document.querySelector('#show-invisible');
     const fpsCounter = document.querySelector('#fps-counter');
-    const verticalOffsets = [-40, 23, -8, 35, -27, 12, -3, 41, -18, 7, -34, 29, -13, 2, 38, -22];
+    const pointerRadius = 220;
+    const neighborRadius = 132;
+    const gravity = 0.18;
+    const drag = 0.96;
+    const maxSpeed = 12;
+    const collisionSpring = 0.12;
+    const collisionDamping = 0.16;
+    const randomPush = 0.025;
+    const edgeNudge = 0.08;
+    const floorSpring = 0.12;
+    const floorFriction = 0.97;
+    const wrapBuffer = 96;
     let boba = [];
-    let activePearls = new Set();
+    let invisibleParticles = [];
+    let particles = [];
+    let area = { width: 0, height: 0 };
+    let pointer = { x: 0, y: 0, dx: 0, dy: 0, active: false, lastMove: 0 };
     let frameCount = 0;
     let fpsStart = performance.now();
 
+    function updateArea() {
+      const pageHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, window.innerHeight);
+      bobaDecoration.style.height = `${pageHeight}px`;
+      const bounds = bobaDecoration.getBoundingClientRect();
+      const pageTop = bounds.top + window.scrollY;
+      const footerTop = siteFooter.getBoundingClientRect().top + window.scrollY;
+      area = { width: bounds.width, height: Math.max(0, footerTop - pageTop) };
+    }
+
     function buildBoba() {
-      const bottomRowCount = Number(densitySlider.value);
-      const topRowCount = Number(topDensitySlider.value);
-      const rowCounts = [
-        topRowCount,
-        Math.round(topRowCount + (bottomRowCount - topRowCount) * 0.33),
-        Math.round(topRowCount + (bottomRowCount - topRowCount) * 0.66),
-        bottomRowCount
-      ];
-
+      const count = Number(densitySlider.value);
+      const invisibleCount = Number(invisibleCountSlider.value);
+      const invisibleRadius = Number(invisibleSizeSlider.value) / 2;
+      const debugInvisible = showInvisible.checked;
+      updateArea();
       bobaDecoration.replaceChildren();
-      activePearls = new Set();
-      rowCounts.forEach((count) => {
-        const row = document.createElement('div');
-        row.className = 'boba-row';
-        const overlap = count > 1 ? Math.min(0, (55 - count * 3) / (count - 1)) : 0;
-        row.style.setProperty('--boba-overlap', `${overlap}rem`);
-        for (let index = 0; index < count; index += 1) {
-          row.appendChild(document.createElement('span'));
-        }
-        bobaDecoration.appendChild(row);
-      });
+      boba = [];
+      invisibleParticles = [];
 
-      boba = [...bobaDecoration.querySelectorAll('span')].map((element, index) => {
-        const offset = verticalOffsets[Math.floor(Math.random() * verticalOffsets.length)];
-        const restY = offset + Math.round(Math.random() * 8 - 4);
-        element.style.transform = `translate(0, ${restY}px)`;
-        return { element, x: 0, y: restY, restY, vx: 0, vy: 0 };
-      });
-      densityValue.value = bottomRowCount;
-      topDensityValue.value = topRowCount;
+      for (let index = 0; index < count; index += 1) {
+        const element = document.createElement('span');
+        const particle = {
+          element,
+          radius: 24,
+          x: Math.random() * Math.max(1, area.width - 48),
+          y: Math.random() * Math.max(1, area.height - 48),
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: 0
+        };
+        element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+        bobaDecoration.appendChild(element);
+        boba.push(particle);
+      }
+
+      for (let index = 0; index < invisibleCount; index += 1) {
+        const element = debugInvisible ? document.createElement('span') : null;
+        if (element) {
+          element.className = 'debug-particle';
+          element.style.width = `${invisibleRadius * 2}px`;
+          element.style.height = `${invisibleRadius * 2}px`;
+          bobaDecoration.appendChild(element);
+        }
+        invisibleParticles.push({
+          element,
+          radius: invisibleRadius,
+          x: Math.random() * Math.max(1, area.width - invisibleRadius * 2),
+          y: Math.random() * Math.max(1, area.height - invisibleRadius * 2),
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: 0
+        });
+      }
+
+      particles = [...boba, ...invisibleParticles];
+
+      densityValue.value = count;
+      invisibleCountValue.value = invisibleCount;
+      invisibleSizeValue.value = invisibleSizeSlider.value;
     }
 
     densitySlider.addEventListener('input', buildBoba);
-    topDensitySlider.addEventListener('input', buildBoba);
-    buildBoba();
+    invisibleCountSlider.addEventListener('input', buildBoba);
+    invisibleSizeSlider.addEventListener('input', buildBoba);
+    showInvisible.addEventListener('change', buildBoba);
+    window.addEventListener('resize', updateArea);
 
-    let pointer = null;
+    document.addEventListener('pointermove', (event) => {
+      pointer.dx = pointer.x ? event.clientX - pointer.x : 0;
+      pointer.dy = pointer.y ? event.clientY - pointer.y : 0;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      pointer.active = true;
+      pointer.lastMove = performance.now();
+    });
 
-    bobaDecoration.addEventListener('pointermove', (event) => {
-      const movementX = pointer ? event.clientX - pointer.x : 0;
-      const movementY = pointer ? event.clientY - pointer.y : 0;
-      pointer = { x: event.clientX, y: event.clientY, dx: movementX, dy: movementY };
-
-      boba.forEach((pearl) => {
-        const bounds = pearl.element.getBoundingClientRect();
-        const centerX = bounds.left + bounds.width / 2;
-        const centerY = bounds.top + bounds.height / 2;
-        const distance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
-        const influence = Math.max(0, 1 - distance / 140);
-
-        if (influence > 0) {
-          pearl.vx += movementX * influence * 0.18;
-          pearl.vy += movementY * influence * 0.18;
-          activePearls.add(pearl);
-        }
-      });
+    document.addEventListener('pointerleave', () => {
+      pointer.active = false;
     });
 
     function animateBoba() {
@@ -441,26 +569,117 @@
         fpsStart = now;
       }
 
-      activePearls.forEach((pearl) => {
-        pearl.vx += -pearl.x * 0.012;
-        pearl.vy += (pearl.restY - pearl.y) * 0.012;
-        pearl.vx *= 0.9;
-        pearl.vy *= 0.9;
+      const stirring = pointer.active && now - pointer.lastMove < 120;
+      const bounds = bobaDecoration.getBoundingClientRect();
+
+      particles.forEach((pearl) => {
+        pearl.vy += gravity;
+        pearl.vx += (Math.random() - 0.5) * randomPush;
+        pearl.vy += (Math.random() - 0.5) * randomPush;
+
+        if (pearl.x < pearl.radius * 3 || pearl.x > area.width - pearl.radius * 5) {
+          pearl.vx += (Math.random() - 0.5) * edgeNudge;
+        }
+        if (pearl.y > area.height - pearl.radius * 3) {
+          pearl.vx += (Math.random() - 0.5) * edgeNudge;
+          pearl.vy -= Math.random() * edgeNudge * 0.25;
+        }
+
+        if (stirring) {
+          const centerX = pearl.x + pearl.radius;
+          const centerY = pearl.y + pearl.radius;
+          const dx = pointer.x - (bounds.left + centerX);
+          const dy = pointer.y - (bounds.top + centerY);
+          const distance = Math.hypot(dx, dy);
+          const influence = Math.max(0, 1 - distance / pointerRadius);
+          pearl.vx += pointer.dx * influence * 0.16;
+          pearl.vy += pointer.dy * influence * 0.16;
+        }
+
+        pearl.vx *= drag;
+        pearl.vy *= drag;
+
+        const speed = Math.hypot(pearl.vx, pearl.vy);
+        if (speed > maxSpeed) {
+          pearl.vx = pearl.vx / speed * maxSpeed;
+          pearl.vy = pearl.vy / speed * maxSpeed;
+        }
+
         pearl.x += pearl.vx;
         pearl.y += pearl.vy;
-        pearl.element.style.transform = `translate(${pearl.x}px, ${pearl.y}px)`;
 
-        if (Math.abs(pearl.vx) < 0.01 && Math.abs(pearl.vy) < 0.01 && Math.abs(pearl.x) < 0.1) {
-          pearl.x = 0;
-          pearl.y = pearl.restY;
-          pearl.element.style.transform = `translate(0, ${pearl.restY}px)`;
-          activePearls.delete(pearl);
+        if (pearl.x < -pearl.radius * 2 - wrapBuffer) pearl.x = area.width + wrapBuffer;
+        if (pearl.x > area.width + wrapBuffer) pearl.x = -pearl.radius * 2 - wrapBuffer;
+
+        const floorY = area.height - pearl.radius * 2;
+        const floorPenetration = pearl.y - floorY;
+        if (floorPenetration > -12) {
+          pearl.vy -= Math.max(0.02, floorPenetration * floorSpring);
+          pearl.vx *= floorFriction;
+        }
+      });
+
+      const grid = new Map();
+      particles.forEach((particle, index) => {
+        const cellX = Math.floor(particle.x / neighborRadius);
+        const cellY = Math.floor(particle.y / neighborRadius);
+        const key = `${cellX},${cellY}`;
+        if (!grid.has(key)) grid.set(key, []);
+        grid.get(key).push(index);
+      });
+
+      particles.forEach((a, first) => {
+        const cellX = Math.floor(a.x / neighborRadius);
+        const cellY = Math.floor(a.y / neighborRadius);
+        for (let offsetX = -1; offsetX <= 1; offsetX += 1) {
+          for (let offsetY = -1; offsetY <= 1; offsetY += 1) {
+            const nearby = grid.get(`${cellX + offsetX},${cellY + offsetY}`) || [];
+            nearby.forEach((second) => {
+              if (second <= first) return;
+              const b = particles[second];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const distance = Math.hypot(dx, dy) || 0.001;
+          const minimum = a.radius + b.radius;
+
+          if (distance < neighborRadius) {
+            const influence = 1 - distance / neighborRadius;
+            const sharedVx = (b.vx - a.vx) * 0.012 * influence;
+            const sharedVy = (b.vy - a.vy) * 0.012 * influence;
+            a.vx += sharedVx;
+            a.vy += sharedVy;
+            b.vx -= sharedVx;
+            b.vy -= sharedVy;
+          }
+
+              if (distance < minimum * 1.05) {
+                const normalX = dx / distance;
+                const normalY = dy / distance;
+                const overlap = minimum * 1.05 - distance;
+                const relativeSpeed = (b.vx - a.vx) * normalX + (b.vy - a.vy) * normalY;
+                const springForce = overlap * collisionSpring;
+                const dampingForce = Math.max(0, -relativeSpeed) * collisionDamping;
+                const force = springForce + dampingForce;
+                a.vx -= normalX * force;
+                a.vy -= normalY * force;
+                b.vx += normalX * force;
+                b.vy += normalY * force;
+              }
+            });
+          }
+        }
+      });
+
+      particles.forEach((particle) => {
+        if (particle.element) {
+          particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
         }
       });
 
       requestAnimationFrame(animateBoba);
     }
 
+    buildBoba();
     animateBoba();
   </script>
 </body>
